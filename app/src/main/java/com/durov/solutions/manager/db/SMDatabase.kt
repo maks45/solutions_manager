@@ -7,7 +7,8 @@ import com.durov.solutions.manager.db.entity.SubjectEntity
 @Database(entities = [SubjectEntity::class], version = 1, exportSchema = false)
 abstract class SMDatabase : RoomDatabase() {
     companion object{
-        const val NAME = "solution_manager_db"
+        const val NAME = "solutions_manager_db"
     }
     abstract fun getSubjectsDao(): SubjectDao
+
 }
