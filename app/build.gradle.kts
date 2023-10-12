@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt.plugin) apply false
 }
 
 android {
@@ -64,8 +63,8 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.room)
     implementation(libs.room.ktx)
-    implementation(libs.hilt)
-    annotationProcessor(libs.hilt.kapt)
+    implementation(libs.koin.di)
+    implementation(libs.koin.compose)
     implementation(libs.timber)
     implementation(libs.ui)
     implementation(libs.ui.graphics)
