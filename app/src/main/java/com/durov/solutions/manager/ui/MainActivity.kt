@@ -1,4 +1,4 @@
-package com.durov.solutions.manager
+package com.durov.solutions.manager.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
