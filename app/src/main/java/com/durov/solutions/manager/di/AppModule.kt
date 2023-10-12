@@ -2,6 +2,8 @@ package com.durov.solutions.manager.di
 
 import androidx.room.Room
 import com.durov.solutions.manager.db.SMDatabase
+import com.durov.solutions.manager.domain.navigation.NavigationRepository
+import com.durov.solutions.manager.domain.navigation.NavigationRepositoryImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -18,6 +20,10 @@ val AppModule = module {
     single {
         val database: SMDatabase = get()
         database.getSubjectsDao()
+    }
+
+    single<NavigationRepository> {
+        NavigationRepositoryImpl()
     }
 
 }

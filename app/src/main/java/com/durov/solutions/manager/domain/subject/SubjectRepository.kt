@@ -1,4 +1,4 @@
-package com.durov.solutions.manager.core
+package com.durov.solutions.manager.domain.subject
 
 import com.durov.solutions.manager.model.Subject
 
