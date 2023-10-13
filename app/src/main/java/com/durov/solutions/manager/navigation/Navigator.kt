@@ -8,6 +8,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.durov.solutions.manager.screen.home.HomeScreen
+import com.durov.solutions.manager.screen.subject.SubjectScreen
 import com.durov.solutions.manager.ui.MainActivity
 import com.durov.solutions.manager.ui.NavigationViewModel
 import kotlinx.coroutines.flow.collect
@@ -30,7 +32,8 @@ fun Navigator(
     BackHandler(true, viewModel::back)
     Surface(modifier = Modifier.fillMaxSize()) {
         when (screenState.value) {
-
+            Screen.Home -> HomeScreen()
+            Screen.Subject -> SubjectScreen()
             else -> Unit
         }
     }

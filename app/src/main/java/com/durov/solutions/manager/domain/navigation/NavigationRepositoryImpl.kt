@@ -19,17 +19,20 @@ class NavigationRepositoryImpl : NavigationRepository {
     override suspend fun back() {
         when (screenState.value) {
             Screen.Home -> _finishApp.emit(Unit)
-            else -> _screenState.value = screenChain.poll() ?: Screen.Home
+            else -> {
+                screenChain.poll()
+                _screenState.value = screenChain.lastOrNull() ?: Screen.Home
+            }
         }
     }
 
     override fun navigate(screen: Screen) {
-        screenChain.addLast(screen)
+        screenChain.add(screen)
         _screenState.value = screenChain.last
     }
 
     override fun replace(screen: Screen) {
-        screenChain.add(screenChain.lastIndex, screen)
+        screenChain.addLast(screen)
         _screenState.value = screenChain.last
     }
 

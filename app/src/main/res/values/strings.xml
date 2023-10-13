@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SM Manager</string>
+    <string name="button_add_new_subject">Add new subject</string>
 </resources>
