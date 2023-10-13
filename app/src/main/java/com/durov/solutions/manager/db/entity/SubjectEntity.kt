@@ -3,7 +3,6 @@ package com.durov.solutions.manager.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.durov.solutions.manager.model.Factor
-import com.durov.solutions.manager.model.Solution
 import com.durov.solutions.manager.model.Subject
 
 @Entity(tableName = "subject")
@@ -12,7 +11,7 @@ data class SubjectEntity(
     val id: Long? = null,
     val name: String,
     val factors: List<Factor>,
-    val solutions: List<Solution>
+   // val solutions: List<Solution>
 )
 
 fun SubjectEntity.toSubject(): Subject {
@@ -20,6 +19,6 @@ fun SubjectEntity.toSubject(): Subject {
         id = id,
         name = name,
         factors = factors,
-        solutions = solutions
+        solutions = emptyList()
     )
 }

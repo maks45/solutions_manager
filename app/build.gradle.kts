@@ -1,14 +1,17 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.application)
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.durov.solutions.manager"
     compileSdk = 34
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.durov.solutions.manager"
@@ -24,26 +27,26 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("Boolean", "DEBUG", "true")
+        }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            buildConfigField("Boolean", "DEBUG", "false")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
     packaging {
         resources {
@@ -51,18 +54,20 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
     implementation(libs.core.ktx)
+    implementation(libs.gson)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.compose.activity)
     implementation(platform(libs.compose.bom))
     implementation(libs.room)
     implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
     implementation(libs.koin.di)
     implementation(libs.koin.compose)
     implementation(libs.timber)
