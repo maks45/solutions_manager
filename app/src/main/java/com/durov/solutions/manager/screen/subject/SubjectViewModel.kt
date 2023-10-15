@@ -6,7 +6,7 @@ import com.durov.solutions.manager.domain.subject.SubjectRepository
 import com.durov.solutions.manager.model.Subject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class SubjectViewModel(
@@ -16,8 +16,8 @@ class SubjectViewModel(
         const val LOADING_DELAY = 2000L
     }
 
-    private val _screenState = MutableStateFlow<SubjectScreenState>(SubjectScreenState.LoadingState)
-    val screenState = _screenState.asStateFlow()
+    private val _screenState = MutableStateFlow<SubjectScreenState>(SubjectScreenState.StartLoading)
+    val screenState = _screenState.asSharedFlow()
 
     fun loadSubject(id: Long?) {
         viewModelScope.launch(mainExceptionHandler) {
@@ -27,13 +27,17 @@ class SubjectViewModel(
                 delay(LOADING_DELAY)
                 Subject()
             }
-            _screenState.value = SubjectScreenState.SubjectState(subject)
+            _screenState.value = SubjectScreenState.UpdateState(subject)
+            _screenState.value = SubjectScreenState.FinishLoading
         }
     }
 
     fun saveSubject(subject: Subject) {
-        viewModelScope.launch(ignoreExceptionHandler) {
+        viewModelScope.launch(mainExceptionHandler) {
+            _screenState.value = SubjectScreenState.StartLoading
             subjectRepository.updateSubject(subject)
+            delay(LOADING_DELAY)
+            _screenState.value = SubjectScreenState.FinishLoading
         }
     }
 

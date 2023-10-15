@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">SM Manager</string>
-    <!--Subject Screen-->
+    <!--Home Screen-->
+    <string name="screen_home_title">All subjects</string>
     <string name="button_add_new_subject">Add new subject</string>
+    <!--Subject Screen-->
+    <string name="screen_subject_title_add">Add new subject</string>
+    <string name="screen_subject_title_edit">Edit subject</string>
     <string name="button_save_subject">Save subject</string>
+    <string name="screen_subject_hint_name">Subject name</string>
     <!--Errors-->
     <string name="error_general_text">Something went wrong:(</string>
     <string name="error_general_button">Got it</string>
