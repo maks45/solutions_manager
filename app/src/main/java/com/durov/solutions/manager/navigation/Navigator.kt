@@ -31,9 +31,9 @@ fun Navigator(
     }
     BackHandler(true, viewModel::back)
     Surface(modifier = Modifier.fillMaxSize()) {
-        when (screenState.value) {
-            Screen.Home -> HomeScreen()
-            Screen.Subject -> SubjectScreen()
+        when (val state = screenState.value) {
+            is Screen.Home -> HomeScreen()
+            is Screen.Subject -> SubjectScreen(id = state.id)
             else -> Unit
         }
     }
