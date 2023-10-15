@@ -4,9 +4,9 @@ import com.durov.solutions.manager.db.entity.SubjectEntity
 
 data class Subject(
     val id: Long? = null,
-    val name: String,
-    val factors: List<Factor>,
-    val solutions: List<Solution>
+    val name: String = "",
+    val factors: List<Factor> = emptyList(),
+    val solutions: List<Solution> = emptyList()
 )
 
 fun Subject.toEntity(): SubjectEntity {
@@ -14,6 +14,6 @@ fun Subject.toEntity(): SubjectEntity {
         id = id,
         name = name,
         factors = factors,
-     //   solutions = solutions
+        //   solutions = solutions
     )
 }

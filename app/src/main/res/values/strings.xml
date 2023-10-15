@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">SM Manager</string>
+    <!--Subject Screen-->
     <string name="button_add_new_subject">Add new subject</string>
+    <string name="button_save_subject">Save subject</string>
+    <!--Errors-->
+    <string name="error_general_text">Something went wrong:(</string>
+    <string name="error_general_button">Got it</string>
 </resources>

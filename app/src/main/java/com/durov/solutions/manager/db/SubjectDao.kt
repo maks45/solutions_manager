@@ -18,4 +18,7 @@ abstract class SubjectDao {
     @Delete
     abstract suspend fun deleteSubject(subject: SubjectEntity)
 
+    @Query("SELECT * FROM subject WHERE id =:id")
+    abstract suspend fun getById(id: Long): SubjectEntity
+
 }

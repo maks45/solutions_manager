@@ -22,4 +22,8 @@ class SubjectRepositoryImpl(
         subjectDao.deleteSubject(subject.toEntity())
     }
 
+    override suspend fun getById(id: Long): Subject {
+        return subjectDao.getById(id).toSubject()
+    }
+
 }
