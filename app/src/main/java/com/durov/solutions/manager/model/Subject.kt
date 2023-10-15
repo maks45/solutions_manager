@@ -14,6 +14,6 @@ fun Subject.toEntity(): SubjectEntity {
         id = id,
         name = name,
         factors = factors,
-        //   solutions = solutions
+        solutions = solutions
     )
 }

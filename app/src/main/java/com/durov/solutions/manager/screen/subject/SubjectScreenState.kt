@@ -3,8 +3,9 @@ package com.durov.solutions.manager.screen.subject
 import com.durov.solutions.manager.model.Subject
 
 sealed interface SubjectScreenState {
-    object LoadingState : SubjectScreenState
+    object StartLoading : SubjectScreenState
 
-    class SubjectState(val subject: Subject) : SubjectScreenState
+    object FinishLoading : SubjectScreenState
+    class UpdateState(val subject: Subject) : SubjectScreenState
 
 }
