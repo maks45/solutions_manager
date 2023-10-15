@@ -1,5 +1,6 @@
 package com.durov.solutions.manager.screen.error
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,6 +33,19 @@ fun ErrorDialog(
 
 @Composable
 private fun GeneralErrorDialog(onDissmiss: () -> Unit) {
+    BaseErrorDialog(
+        titleRes = R.string.error_general_text,
+        buttonRes = R.string.error_general_button,
+        onDissmiss = onDissmiss
+    )
+}
+
+@Composable
+private fun BaseErrorDialog(
+    @StringRes titleRes: Int,
+    @StringRes buttonRes: Int,
+    onDissmiss: () -> Unit = {}
+) {
     Dialog(onDismissRequest = onDissmiss) {
         Card(
             modifier = Modifier
