@@ -10,7 +10,7 @@ import com.durov.solutions.manager.db.entity.SubjectEntity
 @Dao
 abstract class SubjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun addSubject(subject: SubjectEntity)
+    abstract suspend fun addSubject(subject: SubjectEntity): Long
 
     @Query("SELECT * FROM subject")
     abstract suspend fun getAll(): List<SubjectEntity>
@@ -19,6 +19,6 @@ abstract class SubjectDao {
     abstract suspend fun deleteSubject(subject: SubjectEntity)
 
     @Query("SELECT * FROM subject WHERE id =:id")
-    abstract suspend fun getById(id: Long): SubjectEntity
+    abstract suspend fun getById(id: Long?): SubjectEntity
 
 }

@@ -10,13 +10,17 @@ val SubjectModule = module {
 
     factory<SubjectRepository> {
         SubjectRepositoryImpl(
-            subjectDao = get()
+            subjectDao = get(),
+            factorRepository = get(),
+            solutionRepository = get()
         )
     }
 
     viewModel {
         SubjectViewModel(
-            subjectRepository = get()
+            subjectRepository = get(),
+            solutionRepository = get(),
+            factorRepository = get()
         )
     }
 

@@ -9,6 +9,8 @@ interface SubjectRepository {
 
     suspend fun deleteSubject(subject: Subject)
 
-    suspend fun getById(id: Long): Subject
+    suspend fun loadById(id: Long): Subject
+
+    suspend fun addSubject(subject: Subject): Long
 
 }

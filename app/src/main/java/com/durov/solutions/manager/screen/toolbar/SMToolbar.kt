@@ -32,7 +32,7 @@ fun SMToolbar(
     BaseToolbar(
         modifier = modifier,
         titleRes = titleRes,
-        startIcon = R.drawable.arrow_back_black_24,
+        startIcon = R.drawable.ic_arrow_back,
         onStartButtonClick = onBack
     )
 }

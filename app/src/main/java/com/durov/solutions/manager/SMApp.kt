@@ -2,8 +2,10 @@ package com.durov.solutions.manager
 
 import android.app.Application
 import com.durov.solutions.manager.di.AppModule
+import com.durov.solutions.manager.di.FactorModule
 import com.durov.solutions.manager.di.HomeModule
 import com.durov.solutions.manager.di.MainModule
+import com.durov.solutions.manager.di.SolutionModule
 import com.durov.solutions.manager.di.SubjectModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -26,6 +28,8 @@ class SMApp : Application() {
                     MainModule,
                     HomeModule,
                     SubjectModule,
+                    FactorModule,
+                    SolutionModule
                 )
             )
         }

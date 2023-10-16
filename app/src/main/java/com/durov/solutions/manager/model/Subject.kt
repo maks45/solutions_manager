@@ -12,8 +12,6 @@ data class Subject(
 fun Subject.toEntity(): SubjectEntity {
     return SubjectEntity(
         id = id,
-        name = name,
-        factors = factors,
-        solutions = solutions
+        name = name
     )
 }

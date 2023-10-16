@@ -22,7 +22,7 @@ import androidx.compose.ui.window.Dialog
 import com.durov.solutions.manager.R
 
 @Composable
-fun ErrorDialog(
+fun DialogError(
     cause: Throwable, onDissmiss: () -> Unit = {}
 ) {
     when (cause) {
@@ -60,14 +60,14 @@ private fun BaseErrorDialog(
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
-                    text = stringResource(id = R.string.error_general_text),
+                    text = stringResource(id = titleRes),
                     style = TextStyle(fontSize = 18.sp)
                 )
                 Button(
                     onClick = onDissmiss
                 ) {
                     Text(
-                        text = stringResource(id = R.string.error_general_button)
+                        text = stringResource(id = buttonRes)
                     )
                 }
             }
