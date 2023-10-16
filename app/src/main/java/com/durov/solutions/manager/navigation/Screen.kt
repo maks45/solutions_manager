@@ -3,10 +3,10 @@ package com.durov.solutions.manager.navigation
 sealed interface Screen {
     object Home : Screen
 
-    class Subject(val id: Long? = null) : Screen
+    class Subject(val id: Long) : Screen
 
-    object Factor : Screen
+    class Factor(val id: Long) : Screen
 
-    object Solution : Screen
+    class Solution(val id: Long) : Screen
 
 }
