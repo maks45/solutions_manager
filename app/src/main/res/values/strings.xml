@@ -6,7 +6,7 @@
     <!--Subject Screen-->
     <string name="screen_subject_title">Subject</string>
     <string name="button_save_subject">Save subject</string>
-    <string name="button_calculate_solution">Calculate solution</string>
+    <string name="button_calculate_solution">Calculate optimal solution</string>
     <string name="screen_subject_enter_name">Subject name</string>
     <string name="screen_subject_solutions_title">Possible Solutions:</string>
     <string name="screen_subject_factors_title">Solution factors:</string>
