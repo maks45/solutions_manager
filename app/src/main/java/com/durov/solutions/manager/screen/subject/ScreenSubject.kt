@@ -4,12 +4,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -55,18 +58,17 @@ fun ScreenSubject(viewModel: SubjectViewModel = getViewModel(), id: Long) {
             }
         }
     }
-    Box(Modifier.fillMaxSize()) {
-        Column {
-            SMToolbar(
-                titleRes = R.string.screen_subject_title, onBack = viewModel::back
-            )
-            SubjectStateScreen(subjectState = subjectState, subjectId = id)
-        }
+    Column(Modifier.fillMaxSize()) {
+        SMToolbar(
+            titleRes = R.string.screen_subject_title, onBack = viewModel::back
+        )
+        SubjectStateScreen(subjectState = subjectState, subjectId = id)
         Button(modifier = Modifier
-            .align(Alignment.BottomEnd)
-            .padding(all = 20.dp), onClick = {
-            //todo
-        }) {
+            .align(Alignment.End)
+            .padding(top = 10.dp, bottom = 20.dp, end = 20.dp),
+            onClick = {
+                //todo
+            }) {
             Text(
                 text = stringResource(R.string.button_calculate_solution), style = TextStyle()
             )
@@ -75,12 +77,16 @@ fun ScreenSubject(viewModel: SubjectViewModel = getViewModel(), id: Long) {
 }
 
 @Composable
-private fun SubjectStateScreen(
+private fun ColumnScope.SubjectStateScreen(
     modifier: Modifier = Modifier,
     subjectState: MutableState<Subject?>,
     subjectId: Long
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .weight(1f)
+    ) {
         EditSubjectScreen(subjectState = subjectState, subjectId)
     }
 }
@@ -94,6 +100,7 @@ private fun EditSubjectScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         TextField(modifier = Modifier.fillMaxWidth(),
             value = subjectState.value?.name ?: "",
