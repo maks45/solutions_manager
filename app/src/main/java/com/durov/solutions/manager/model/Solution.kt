@@ -4,7 +4,7 @@ import com.durov.solutions.manager.db.entity.SolutionEntity
 
 data class Solution(
     val id: Long? = null,
-    val subjectId: Long? = null,
+    val subjectId: Long,
     val name: String = "",
     val rate: Int? = null
 )

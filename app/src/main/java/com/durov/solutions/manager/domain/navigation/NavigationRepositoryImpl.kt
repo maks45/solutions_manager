@@ -24,7 +24,7 @@ class NavigationRepositoryImpl : NavigationRepository {
         when (screenState.value) {
             Screen.Home -> _finishApp.emit(Unit)
             else -> {
-                screenChain.poll()
+                screenChain.removeLast()
                 _screenState.value = screenChain.lastOrNull() ?: Screen.Home
             }
         }

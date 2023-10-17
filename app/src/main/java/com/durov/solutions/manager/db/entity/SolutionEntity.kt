@@ -11,7 +11,7 @@ data class SolutionEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
     @ColumnInfo(name = "subject_id")
-    val subjectId: Long?,
+    val subjectId: Long,
     val name: String,
     val rate: Int?
 )
