@@ -4,7 +4,7 @@ import com.durov.solutions.manager.db.entity.FactorEntity
 
 data class Factor(
     val id: Long? = null,
-    val subjectId: Long?,
+    val subjectId: Long,
     val name: String = "",
     val priority: Int? = null,
 )

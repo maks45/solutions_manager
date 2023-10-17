@@ -60,7 +60,7 @@ fun ScreenSubject(viewModel: SubjectViewModel = getViewModel(), id: Long) {
             SMToolbar(
                 titleRes = R.string.screen_subject_title, onBack = viewModel::back
             )
-            SubjectStateScreen(subjectState = subjectState)
+            SubjectStateScreen(subjectState = subjectState, subjectId = id)
         }
         Button(modifier = Modifier
             .align(Alignment.BottomEnd)
@@ -76,16 +76,19 @@ fun ScreenSubject(viewModel: SubjectViewModel = getViewModel(), id: Long) {
 
 @Composable
 private fun SubjectStateScreen(
-    modifier: Modifier = Modifier, subjectState: MutableState<Subject?>
+    modifier: Modifier = Modifier,
+    subjectState: MutableState<Subject?>,
+    subjectId: Long
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        EditSubjectScreen(subjectState = subjectState)
+        EditSubjectScreen(subjectState = subjectState, subjectId)
     }
 }
 
 @Composable
 private fun EditSubjectScreen(
     subjectState: MutableState<Subject?>,
+    subjectId: Long
 ) {
     Column(
         modifier = Modifier
@@ -106,7 +109,7 @@ private fun EditSubjectScreen(
         )
         SolutionsList(
             solutions = subjectState.value?.solutions ?: emptyList(),
-            subjectId = subjectState.value?.id
+            subjectId = subjectId
         )
         Text(
             modifier = Modifier
@@ -115,7 +118,8 @@ private fun EditSubjectScreen(
             text = stringResource(id = R.string.screen_subject_factors_title)
         )
         FactorsList(
-            factors = subjectState.value?.factors ?: emptyList(), subjectId = subjectState.value?.id
+            factors = subjectState.value?.factors ?: emptyList(),
+            subjectId = subjectId
         )
     }
 }
@@ -123,7 +127,7 @@ private fun EditSubjectScreen(
 @Composable
 private fun SolutionsList(
     modifier: Modifier = Modifier,
-    subjectId: Long?,
+    subjectId: Long,
     viewModel: SubjectViewModel = getViewModel(),
     solutions: List<Solution>
 ) {
@@ -143,7 +147,7 @@ private fun SolutionsList(
 @Composable
 private fun FactorsList(
     modifier: Modifier = Modifier,
-    subjectId: Long?,
+    subjectId: Long,
     viewModel: SubjectViewModel = getViewModel(),
     factors: List<Factor>
 ) {
@@ -152,12 +156,12 @@ private fun FactorsList(
             FactorItemCard(factor = it)
         }
     }
-    if (factors.isEmpty()) {
-        Button(onClick = { viewModel.editFactor(Factor(subjectId = subjectId)) }) {
-            Text(
-                text = stringResource(R.string.button_subject_add_factor),
-            )
-        }
+    Button(onClick = {
+        viewModel.editFactor(Factor(subjectId = subjectId))
+    }) {
+        Text(
+            text = stringResource(R.string.button_subject_add_factor),
+        )
     }
 }
 
@@ -178,7 +182,7 @@ private fun FactorItemCard(
         shape = RoundedCornerShape(5.dp),
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -215,7 +219,7 @@ private fun SolutionItemCard(
         shape = RoundedCornerShape(5.dp),
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {

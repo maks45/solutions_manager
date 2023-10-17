@@ -43,9 +43,7 @@ class SubjectViewModel(
     fun removeSolution(solution: Solution) {
         viewModelScope.launch(mainExceptionHandler) {
             solutionRepository.remove(solution)
-            solution.subjectId?.let {
-                _subjectState.value = subjectRepository.loadById(solution.subjectId)
-            }
+            _subjectState.value = subjectRepository.loadById(solution.subjectId)
         }
     }
 
@@ -59,9 +57,7 @@ class SubjectViewModel(
     fun removeFactor(factor: Factor) {
         viewModelScope.launch(mainExceptionHandler) {
             factorRepository.remove(factor)
-            factor.subjectId?.let {
-                _subjectState.value = subjectRepository.loadById(factor.subjectId)
-            }
+            _subjectState.value = subjectRepository.loadById(factor.subjectId)
         }
     }
 
