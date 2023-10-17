@@ -12,9 +12,6 @@ abstract class FactorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addFactor(factor: FactorEntity): Long
 
-    @Query("SELECT * FROM factor")
-    abstract suspend fun getAll(): List<FactorEntity>
-
     @Delete
     abstract suspend fun deleteFactor(factor: FactorEntity)
 

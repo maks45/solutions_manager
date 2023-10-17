@@ -10,7 +10,7 @@ data class FactorEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
     @ColumnInfo(name = "subject_id")
-    val subjectId: Long?,
+    val subjectId: Long,
     val name: String,
     val priority: Int?
 )

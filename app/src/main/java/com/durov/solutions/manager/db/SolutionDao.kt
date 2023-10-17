@@ -12,13 +12,10 @@ abstract class SolutionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addSolution(solution: SolutionEntity): Long
 
-    @Query("SELECT * FROM solution")
-    abstract suspend fun getAll(): List<SolutionEntity>
-
     @Delete
     abstract suspend fun deleteSolution(solution: SolutionEntity)
 
-    @Query("SELECT * FROM factor WHERE id =:id")
+    @Query("SELECT * FROM solution WHERE id =:id")
     abstract suspend fun getById(id: Long): SolutionEntity
 
     @Query("SELECT * FROM solution WHERE subject_id =:subjectId")
