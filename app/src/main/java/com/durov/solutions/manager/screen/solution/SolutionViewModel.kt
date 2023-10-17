@@ -19,7 +19,11 @@ class SolutionViewModel(private val solutionRepository: SolutionRepository) : Ba
 
     fun saveSolution(solution: Solution) {
         viewModelScope.launch(ignoreExceptionHandler) {
-            solutionRepository.saveSolution(solution)
+            if (solution.name.isNotBlank()) {
+                solutionRepository.saveSolution(solution)
+            } else {
+                solutionRepository.remove(solution)
+            }
         }
     }
 }

@@ -19,7 +19,11 @@ class FactorViewModel(private val factorRepository: FactorRepository) : BaseView
 
     fun saveFactor(factor: Factor) {
         viewModelScope.launch(ignoreExceptionHandler) {
-            factorRepository.saveFactor(factor)
+            if (factor.name.isNotBlank()) {
+                factorRepository.saveFactor(factor)
+            } else {
+                factorRepository.remove(factor)
+            }
         }
     }
 }
