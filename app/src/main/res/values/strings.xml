@@ -19,6 +19,7 @@
     <string name="solution_button_done">Done</string>
     <!--Factor Dialog-->
     <string name="screen_factor_title">Factor</string>
+    <string name="factor_explain_text">How would you rate importance of this factor:</string>
     <string name="factor_enter_name">Factor name</string>
     <string name="factor_button_save">Save factor</string>
     <string name="factor_button_done">Done</string>

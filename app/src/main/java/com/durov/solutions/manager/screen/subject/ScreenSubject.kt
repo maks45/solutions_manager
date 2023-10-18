@@ -111,7 +111,7 @@ private fun EditSubjectScreen(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(5.dp),
+                .padding(vertical = 5.dp),
             text = stringResource(id = R.string.screen_subject_solutions_title)
         )
         SolutionsList(
@@ -121,7 +121,7 @@ private fun EditSubjectScreen(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(5.dp),
+                .padding(vertical = 5.dp),
             text = stringResource(id = R.string.screen_subject_factors_title)
         )
         FactorsList(

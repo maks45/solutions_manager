@@ -2,15 +2,19 @@ package com.durov.solutions.manager.screen.factor
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -53,6 +57,9 @@ fun ScreenFactor(
             titleRes = R.string.screen_factor_title, onBack = viewModel::back
         )
         Column(Modifier.padding(10.dp)) {
+            val priority = remember(factorState.value) {
+                mutableIntStateOf(factorState.value?.priority ?: 1)
+            }
             TextField(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -61,6 +68,20 @@ fun ScreenFactor(
                 label = { Text(stringResource(id = R.string.factor_enter_name)) },
                 onValueChange = {
                     factorState.value = factorState.value?.copy(name = it)
+                }
+            )
+            Row {
+                Text(text = stringResource(id = R.string.factor_explain_text))
+                Text(text = "\t${priority.intValue}")
+            }
+
+            Slider(
+                value = priority.intValue.toFloat(),
+                valueRange = 1f..10f,
+                onValueChange = { priority.intValue = it.toInt() },
+                steps = 10,
+                onValueChangeFinished = {
+                    factorState.value = factorState.value?.copy(priority = priority.intValue)
                 }
             )
             Button(onClick = viewModel::back) {

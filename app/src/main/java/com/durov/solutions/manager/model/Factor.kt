@@ -6,7 +6,7 @@ data class Factor(
     val id: Long? = null,
     val subjectId: Long,
     val name: String = "",
-    val priority: Int? = null,
+    val priority: Int = 1,
 )
 
 fun Factor.toFactorEntity() = FactorEntity(
