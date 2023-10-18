@@ -12,7 +12,7 @@ data class FactorEntity(
     @ColumnInfo(name = "subject_id")
     val subjectId: Long,
     val name: String,
-    val priority: Int?
+    val priority: Int
 )
 
 fun FactorEntity.toFactor() = Factor(
