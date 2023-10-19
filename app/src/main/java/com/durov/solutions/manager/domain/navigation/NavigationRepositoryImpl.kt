@@ -21,8 +21,8 @@ class NavigationRepositoryImpl : NavigationRepository {
 
     override suspend fun back() {
         clearDialogs()
-        when (screenState.value) {
-            Screen.Home -> _finishApp.emit(Unit)
+        when (screenChain.size) {
+            0 -> _finishApp.emit(Unit)
             else -> {
                 screenChain.removeLast()
                 _screenState.value = screenChain.lastOrNull() ?: Screen.Home
@@ -38,6 +38,7 @@ class NavigationRepositoryImpl : NavigationRepository {
 
     override fun replace(screen: Screen) {
         clearDialogs()
+        screenChain.removeLast()
         screenChain.addLast(screen)
         _screenState.value = screenChain.last
     }
