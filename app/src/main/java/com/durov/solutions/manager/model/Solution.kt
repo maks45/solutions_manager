@@ -6,12 +6,14 @@ data class Solution(
     val id: Long? = null,
     val subjectId: Long,
     val name: String = "",
-    val rate: Int? = null
+    val factorsRate: Map<Long, Int> = emptyMap(),
+    val rate: Int? = null,
 )
 
 fun Solution.toEntity() = SolutionEntity(
     id = id,
     subjectId = subjectId,
     name = name,
+    factorsRate = factorsRate,
     rate = rate
 )

@@ -13,6 +13,7 @@ data class SolutionEntity(
     @ColumnInfo(name = "subject_id")
     val subjectId: Long,
     val name: String,
+    val factorsRate: Map<Long, Int>,
     val rate: Int?
 )
 
