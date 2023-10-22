@@ -16,7 +16,8 @@ val SolutionModule = module {
 
     viewModel {
         SolutionViewModel(
-            solutionRepository = get()
+            solutionRepository = get(),
+            factorRepository = get()
         )
     }
 
