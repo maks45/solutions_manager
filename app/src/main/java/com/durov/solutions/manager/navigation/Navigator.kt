@@ -16,7 +16,6 @@ import com.durov.solutions.manager.screen.loading.DialogLoading
 import com.durov.solutions.manager.screen.solution.ScreenSolution
 import com.durov.solutions.manager.screen.subject.ScreenSubject
 import com.durov.solutions.manager.ui.MainActivity
-import com.durov.solutions.manager.ui.NavigationViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.compose.getViewModel
@@ -41,13 +40,16 @@ fun Navigator(
             when (val state = screenState.value) {
                 is Screen.Home -> ScreenHome()
                 is Screen.Subject -> ScreenSubject(id = state.id)
-                is Screen.Solution -> ScreenSolution(id = state.id)
+                is Screen.Solution -> ScreenSolution(
+                    subjectId = state.subjectId,
+                    solutionId = state.solutionId
+                )
+
                 is Screen.Factor -> ScreenFactor(id = state.id)
-                else -> Unit
             }
             when (val dialog = dialogState.value) {
                 is Dialog.Loading -> DialogLoading()
-                is Dialog.Error -> DialogError(dialog.cause)
+                is Dialog.Error -> DialogError(dialog.cause, viewModel::back)
                 else -> Unit
             }
         }

@@ -7,6 +7,6 @@ sealed interface Screen {
 
     class Factor(val id: Long) : Screen
 
-    class Solution(val id: Long) : Screen
+    class Solution(val subjectId: Long, val solutionId: Long) : Screen
 
 }

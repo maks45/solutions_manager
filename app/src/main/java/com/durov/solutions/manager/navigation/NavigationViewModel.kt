@@ -1,4 +1,4 @@
-package com.durov.solutions.manager.ui
+package com.durov.solutions.manager.navigation
 
 
 import com.durov.solutions.manager.core.BaseViewModel
