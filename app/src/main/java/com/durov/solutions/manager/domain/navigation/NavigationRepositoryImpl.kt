@@ -20,7 +20,10 @@ class NavigationRepositoryImpl : NavigationRepository {
     override val screenState: StateFlow<Screen> = _screenState.asStateFlow()
 
     override suspend fun back() {
-        clearDialogs()
+        if (dialogState.value != Dialog.None) {
+            clearDialogs()
+            return
+        }
         when (screenChain.size) {
             0 -> _finishApp.emit(Unit)
             else -> {
@@ -31,13 +34,11 @@ class NavigationRepositoryImpl : NavigationRepository {
     }
 
     override fun navigate(screen: Screen) {
-        clearDialogs()
         screenChain.add(screen)
         _screenState.value = screenChain.last
     }
 
     override fun replace(screen: Screen) {
-        clearDialogs()
         screenChain.removeLast()
         screenChain.addLast(screen)
         _screenState.value = screenChain.last

@@ -12,12 +12,14 @@
     <string name="screen_subject_factors_title">Solution factors:</string>
     <string name="button_subject_add_solution">Add solution</string>
     <string name="button_subject_add_factor">Add factor</string>
-    <!--Solution Dialog-->
+    <string name="subject_optimal_solution">Optimal solution</string>
+    <!--Solution Screen-->
     <string name="screen_solution_title">Solution</string>
     <string name="solution_enter_name">Solution name</string>
     <string name="solution_button_save">Save solution</string>
     <string name="solution_button_done">Done</string>
-    <!--Factor Dialog-->
+    <string name="solution_factor_rate">How would you rate this factor for the solution:</string>
+    <!--Factor Screen-->
     <string name="screen_factor_title">Factor</string>
     <string name="factor_explain_text">How would you rate importance of this factor:</string>
     <string name="factor_enter_name">Factor name</string>

@@ -23,10 +23,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -36,6 +38,7 @@ import com.durov.solutions.manager.model.Factor
 import com.durov.solutions.manager.model.Solution
 import com.durov.solutions.manager.model.Subject
 import com.durov.solutions.manager.screen.toolbar.SMToolbar
+import com.durov.solutions.manager.util.visible
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.compose.getViewModel
@@ -63,12 +66,12 @@ fun ScreenSubject(viewModel: SubjectViewModel = getViewModel(), id: Long) {
             titleRes = R.string.screen_subject_title, onBack = viewModel::back
         )
         SubjectStateScreen(subjectState = subjectState, subjectId = id)
-        Button(modifier = Modifier
-            .align(Alignment.End)
-            .padding(top = 10.dp, bottom = 20.dp, end = 20.dp),
-            onClick = {
-                //todo
-            }) {
+        Button(
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(top = 10.dp, bottom = 20.dp, end = 20.dp),
+            onClick = viewModel::calculateOptimal
+        ) {
             Text(
                 text = stringResource(R.string.button_calculate_solution), style = TextStyle()
             )
@@ -112,20 +115,20 @@ private fun EditSubjectScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 5.dp),
-            text = stringResource(id = R.string.screen_subject_solutions_title)
+            text = stringResource(id = R.string.screen_subject_factors_title)
         )
-        SolutionsList(
-            solutions = subjectState.value?.solutions ?: emptyList(),
+        FactorsList(
+            factors = subjectState.value?.factors ?: emptyList(),
             subjectId = subjectId
         )
         Text(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 5.dp),
-            text = stringResource(id = R.string.screen_subject_factors_title)
+            text = stringResource(id = R.string.screen_subject_solutions_title)
         )
-        FactorsList(
-            factors = subjectState.value?.factors ?: emptyList(),
+        SolutionsList(
+            solutions = subjectState.value?.solutions ?: emptyList(),
             subjectId = subjectId
         )
     }
@@ -194,7 +197,9 @@ private fun FactorItemCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                modifier = Modifier.padding(start = 10.dp),
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(1f),
                 text = factor.name,
             )
             IconButton(onClick = {
@@ -215,6 +220,7 @@ private fun SolutionItemCard(
     solution: Solution,
     viewModel: SubjectViewModel = getViewModel(),
 ) {
+    val optimalSolution = viewModel.optimalSolutionIdState.collectAsState()
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -231,8 +237,17 @@ private fun SolutionItemCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                modifier = Modifier.padding(start = 10.dp),
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(1f),
                 text = solution.name,
+            )
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 3.dp)
+                    .visible(optimalSolution.value == solution.id),
+                text = stringResource(id = R.string.subject_optimal_solution),
+                style = TextStyle(color = Color.Green)
             )
             IconButton(onClick = {
                 viewModel.removeSolution(solution)

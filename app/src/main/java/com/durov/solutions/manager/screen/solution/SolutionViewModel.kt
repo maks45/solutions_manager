@@ -16,12 +16,13 @@ class SolutionViewModel(
 ) : BaseViewModel() {
     private val _solutionState = MutableStateFlow<Solution?>(null)
     val solutionState = _solutionState.asStateFlow()
+
     private val _factorsState = MutableStateFlow<List<Factor>>(emptyList())
     val factorsState = _factorsState.asStateFlow()
 
-    fun loadFactors(id: Long) {
+    fun loadFactors(subjectId: Long) {
         viewModelScope.launch(mainExceptionHandler) {
-            _factorsState.value = factorRepository.getBySubjectId(id)
+            _factorsState.value = factorRepository.getBySubjectId(subjectId)
         }
     }
 
@@ -31,13 +32,30 @@ class SolutionViewModel(
         }
     }
 
-    fun saveSolution(solution: Solution) {
-        viewModelScope.launch(ignoreExceptionHandler) {
-            if (solution.name.isNotBlank()) {
-                solutionRepository.saveSolution(solution)
-            } else {
-                solutionRepository.remove(solution)
+
+    fun changeName(name: String) {
+        _solutionState.value = solutionState.value?.copy(
+            name = name
+        )
+    }
+
+    fun saveSolution() {
+        solutionState.value?.let {
+            if (it.name.isNotBlank()) {
+                viewModelScope.launch(ignoreExceptionHandler) {
+                    solutionRepository.saveSolution(it)
+                }
             }
+        }
+    }
+
+    fun setFactorRate(factorId: Long, rate: Int) {
+        solutionState.value?.let {
+            _solutionState.value = it.copy(
+                factorsRate = it.factorsRate.toMutableMap().apply {
+                    this[factorId] = rate
+                }
+            )
         }
     }
 }

@@ -5,31 +5,28 @@ import androidx.lifecycle.viewModelScope
 import com.durov.solutions.manager.domain.navigation.NavigationRepository
 import com.durov.solutions.manager.navigation.Dialog
 import com.durov.solutions.manager.navigation.Screen
-import com.durov.solutions.manager.screen.error.ExceptionHandler
-import com.durov.solutions.manager.screen.error.model.ExceptionState
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
+import timber.log.Timber
 
 abstract class BaseViewModel :
     ViewModel(),
-    KoinComponent,
-    ExceptionHandler {
+    KoinComponent {
     private val navigationRepository: NavigationRepository = get()
-    private val exceptionHandler: ExceptionHandler = get()
     protected val currentScreenState = navigationRepository.screenState
     protected val currentDialogState = navigationRepository.dialogState
     protected val finishApp = navigationRepository.finishApp
-
-    override val exceptionState: StateFlow<ExceptionState> = exceptionHandler.exceptionState
-    override val ignoreExceptionHandler: CoroutineExceptionHandler =
-        exceptionHandler.ignoreExceptionHandler
-    override val mainExceptionHandler: CoroutineExceptionHandler =
-        exceptionHandler.mainExceptionHandler
-
-    override fun dissmiss() = exceptionHandler.dissmiss()
+    protected val mainExceptionHandler: CoroutineExceptionHandler
+        get() = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+            showDialog(Dialog.Error(throwable))
+        }
+    protected val ignoreExceptionHandler: CoroutineExceptionHandler
+        get() = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+        }
 
     fun back() {
         viewModelScope.launch {

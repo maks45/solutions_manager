@@ -9,8 +9,13 @@ import com.durov.solutions.manager.navigation.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 
 class HomeViewModel(val subjectsRepository: SubjectRepository) : BaseViewModel() {
+    companion object {
+        const val OPEN_SUBJECT_TIMEOUT = 3_000
+    }
+
     private val _subjectsState = MutableStateFlow<List<Subject>>(emptyList())
     val subjectsState = _subjectsState.asStateFlow()
     fun loadAllSubjects() {
@@ -35,11 +40,12 @@ class HomeViewModel(val subjectsRepository: SubjectRepository) : BaseViewModel()
     fun addNewSubject() {
         viewModelScope.launch(mainExceptionHandler) {
             showDialog(Dialog.Loading)
-            val id = subjectsRepository.addSubject(Subject())
+            val id = withTimeout(OPEN_SUBJECT_TIMEOUT.toLong()) {
+                subjectsRepository.addSubject(Subject())
+            }
             clearDialogs()
             navigate(Screen.Subject(id))
         }
     }
 
 }
-
