@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.durov.solutions.manager.model.Factor
 import com.durov.solutions.manager.model.Solution
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class SolutionTypeConverter {
 
@@ -26,8 +27,8 @@ class SolutionTypeConverter {
 
     @TypeConverter
     fun jsonToFactorRate(value: String): Map<Long, Int> {
-        val map = mutableMapOf<Long, Int>()
-        return Gson().fromJson(value, map.javaClass)
+        val typeToken = object : TypeToken<Map<Long, Int>>() {}
+        return Gson().fromJson(value, typeToken)
     }
 
 }

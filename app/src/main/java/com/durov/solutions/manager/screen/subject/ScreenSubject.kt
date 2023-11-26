@@ -56,8 +56,8 @@ fun ScreenSubject(viewModel: SubjectViewModel = getViewModel(), id: Long) {
     }
     DisposableEffect(key1 = Unit) {
         onDispose {
-            subjectState.value?.let {
-                viewModel.saveSubject(it)
+            subjectState.value?.takeIf { it.name.isNotBlank() }?.let { subject ->
+                viewModel.saveSubject(subject)
             }
         }
     }
