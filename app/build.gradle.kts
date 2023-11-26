@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.durov.solutions.manager"
-        minSdk = 28
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
