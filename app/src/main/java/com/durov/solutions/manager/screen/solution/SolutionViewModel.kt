@@ -9,6 +9,7 @@ import com.durov.solutions.manager.model.Solution
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SolutionViewModel(
     private val solutionRepository: SolutionRepository,
@@ -42,6 +43,7 @@ class SolutionViewModel(
     fun saveSolution() {
         solutionState.value?.let {
             if (it.name.isNotBlank()) {
+                Timber.e("save solution: $it")
                 viewModelScope.launch(ignoreExceptionHandler) {
                     solutionRepository.saveSolution(it)
                 }

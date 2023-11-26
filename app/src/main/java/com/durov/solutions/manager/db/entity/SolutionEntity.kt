@@ -22,4 +22,5 @@ fun SolutionEntity.toSolution() = Solution(
     subjectId = subjectId,
     name = name,
     rate = rate,
+    factorsRate = factorsRate
 )
