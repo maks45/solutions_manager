@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,9 +41,16 @@ fun SMToolbar(
 @Composable
 fun SMHomeToolbar(
     modifier: Modifier = Modifier,
+    deleteMode: MutableState<Boolean>,
+    onDelete: () -> Unit,
     @StringRes titleRes: Int = R.string.screen_home_title,
 ) {
-    BaseToolbar(modifier = modifier, titleRes = titleRes)
+    BaseToolbar(
+        modifier = modifier,
+        titleRes = titleRes,
+        endIcon = R.drawable.ic_delete_outline.takeIf { deleteMode.value },
+        onEndButtonClick = onDelete
+    )
 }
 
 @Composable
@@ -78,8 +86,8 @@ private fun BaseToolbar(
             }
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(titlePaddings),
+                    .padding(titlePaddings)
+                    .weight(1f),
                 text = stringResource(id = titleRes),
                 style = titleStyle
             )

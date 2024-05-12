@@ -24,6 +24,15 @@ class HomeViewModel(val subjectsRepository: SubjectRepository) : BaseViewModel()
         }
     }
 
+    fun removeSubjects(subjects: List<Subject>) {
+        viewModelScope.launch(mainExceptionHandler) {
+            subjects.onEach {
+                subjectsRepository.deleteSubject(it)
+            }
+            _subjectsState.value = subjectsRepository.getAllSubjects()
+        }
+    }
+
     fun removeSubject(subject: Subject) {
         viewModelScope.launch(mainExceptionHandler) {
             subjectsRepository.deleteSubject(subject)
